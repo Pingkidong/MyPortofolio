@@ -244,15 +244,11 @@ with tab1:
     Not all cars are built equal. With so many spec combinations available in the market, it can be hard to tell whether a particular configuration is genuinely worth considering. This tool evaluates a car's specification objectively based on purchase price, maintenance cost, number of doors, seating capacity, luggage space, and safety rating. It tells you whether the overall combination meets an acceptable standard.
 
     #### Model Performance
-    - **Algorithm**: Gradient Boosting Classifier
-    - **Imbalance Handling**: SMOTE (sampling_strategy = 0.5)
-    - **Train Accuracy**: 99.14%
-    - **Test Accuracy**: 98.75%
-    - **Precision (ACC)**: 0.94
-    - **Recall (ACC)**: 1.00
-    - **False Positives**: 4 cases
-    - **False Negatives**: 0 cases
-    - **Classification Threshold**: 0.50
+    - Trained on 1,594 real car specification combinations
+    - SMOTE applied on training set only to prevent data leakage
+    - Zero false negatives, every acceptable spec was correctly identified
+    - Only 4 misclassifications out of 319 test samples
+    - Safety rating and seating capacity are the most decisive features, any car with low safety or 2-person capacity is always unacceptable, regardless of price or other specs
 
     #### Real-World Impact
     - Quickly screen whether a car's spec combination meets acceptable standards
