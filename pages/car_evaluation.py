@@ -312,18 +312,18 @@ with tab4:
       </div>
       <div class="info-card">
         <div class="info-card-label">False Positive (Test)</div>
-        <div class="info-card-value">4 kasus</div>
+        <div class="info-card-value">4 cases</div>
       </div>
       <div class="info-card">
         <div class="info-card-label">False Negative (Test)</div>
-        <div class="info-card-value">0 kasus</div>
+        <div class="info-card-value">0 cases</div>
       </div>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
     <div class="tech-list">
-      <span class="tech-tag">Python 3.x</span>
+      <span class="tech-tag">Python</span>
       <span class="tech-tag">Scikit-learn</span>
       <span class="tech-tag">imbalanced-learn</span>
       <span class="tech-tag">Pandas</span>
