@@ -248,7 +248,7 @@ with tab1:
     - SMOTE applied on training set only to prevent data leakage
     - Zero false negatives, every acceptable spec was correctly identified
     - Only 4 misclassifications out of 319 test samples
-    - Safety rating and seating capacity are the most decisive features, any car with low safety or 2-person capacity is always unacceptable, regardless of price or other specs
+    - Safety rating and seating capacity are the most decisive features
 
     #### Real-World Impact
     - Quickly screen whether a car's spec combination meets acceptable standards
