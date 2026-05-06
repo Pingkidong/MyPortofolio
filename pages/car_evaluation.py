@@ -265,7 +265,7 @@ with tab2:
     as acceptable. This ensures the model focuses on correctly identifying both acceptable and unacceptable combinations, which is crucial for providing reliable recommendations to users.
 
     #### Imbalanced Data
-    The dataset has an imbalanced class distribution (~90% unacceptable vs ~1-% acceptable). 
+    The dataset has an imbalanced class distribution (~76% unacceptable vs ~24% acceptable). 
     Without handling this, the model would be biased toward the majority class. 
     **SMOTE** (Synthetic Minority Over-sampling Technique) was applied on the training 
     set only to avoid data leakage.
