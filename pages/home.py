@@ -1,4 +1,6 @@
 import streamlit as st
+from PIL import Image
+import base64, io
 
 # CSS Styling
 st.markdown("""
@@ -123,6 +125,9 @@ html, body, [class*="css"] {
     border-radius: 14px;
     overflow: hidden;
     transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .card:hover {
@@ -135,6 +140,7 @@ html, body, [class*="css"] {
     height: 180px;
     object-fit: cover;
     background: #1a2332;
+    flex-shrink: 0;
 }
 
 .card-img-placeholder {
@@ -145,10 +151,12 @@ html, body, [class*="css"] {
     align-items: center;
     justify-content: center;
     font-size: 3.5rem;
+    flex-shrink: 0;
 }
 
 .card-body {
     padding: 1.2rem 1.4rem 1.4rem;
+    
 }
 
 .card-badge {
@@ -177,6 +185,7 @@ html, body, [class*="css"] {
     color: #7a7570;
     line-height: 1.6;
     margin-bottom: 1rem;
+    flex-grow: 1;
 }
 
 .card-tags {
@@ -194,15 +203,25 @@ html, body, [class*="css"] {
     color: #5a5560;
     font-family: 'DM Mono', monospace;
 }
+
+/* Force equal height columns */
+[data-testid="column"] {
+    display: flex;
+    flex-direction: column;
+}
+
+[data-testid="column"] > div:first-child {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
 </style>
 """, unsafe_allow_html=True)
 
 
-# Profile Section
+# PROFILE 
 try:
-    from PIL import Image
     img = Image.open("asset/foto.jpeg")
-    import base64, io
     buf = io.BytesIO()
     img.save(buf, format="JPEG")
     b64 = base64.b64encode(buf.getvalue()).decode()
@@ -215,9 +234,9 @@ st.markdown(f"""
   {photo_html}
   <div>
     <div class="hero-name">Silvia Naada Kamilia</div>
-    <div class="hero-role">ML Enthusiast</div>
+    <div class="hero-role">Data Enthusiast</div>
     <div class="hero-bio">
-      I am a passionate Machine Learning enthusiast with a strong foundation in Python and data analysis. I enjoy exploring  datasets, building predictive models, and sharing insights through interactive applications. 
+      I am a passionate data enthusiast with a strong foundation in Python and data analysis. I enjoy exploring datasets, building predictive models, and sharing insights through interactive applications.
     </div>
     <div class="socials">
       <a class="social-pill" href="mailto:silvia.kamilia55@gmail.com">✉️ silvia.kamilia55@gmail.com</a>
@@ -230,7 +249,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# SKILLS 
+# TECH STACK 
 st.markdown('<div class="section-title">Tech Stack</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="skills-row">
@@ -241,6 +260,7 @@ st.markdown("""
   <span class="skill-tag">Matplotlib</span>
   <span class="skill-tag">Seaborn</span>
   <span class="skill-tag">Streamlit</span>
+  <span class="skill-tag">Tableau</span>
   <span class="skill-tag">Jupyter Notebook</span>
   <span class="skill-tag">Visual Studio Code</span>
   <span class="skill-tag">Looker Studio</span>
@@ -249,26 +269,71 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# Project
+# PROJECTS ──
 st.markdown('<div class="section-title">Projects</div>', unsafe_allow_html=True)
 
-try:
-    from PIL import Image
-    img2 = Image.open("asset/mobil.jpg")
-    import base64, io
-    buf2 = io.BytesIO()
-    img2.save(buf2, format="JPEG")
-    b64_2 = base64.b64encode(buf2.getvalue()).decode()
-    card_img_html = f'<img src="data:image/jpeg;base64,{b64_2}" class="card-img"/>'
-except:
-    card_img_html = '<div class="card-img-placeholder">🚗</div>'
+# Load images
+def load_img_b64(path, fmt="JPEG"):
+    try:
+        img = Image.open(path)
+        buf = io.BytesIO()
+        img.save(buf, format=fmt)
+        return base64.b64encode(buf.getvalue()).decode()
+    except:
+        return None
+
+b64_market = load_img_b64("asset/market.jpg")
+b64_mobil  = load_img_b64("asset/mobil.jpg")
+
+card_img_walmart = (
+    f'<img src="data:image/jpeg;base64,{b64_market}" class="card-img"/>'
+    if b64_market else
+    '<div class="card-img-placeholder">📊</div>'
+)
+
+card_img_car = (
+    f'<img src="data:image/jpeg;base64,{b64_mobil}" class="card-img"/>'
+    if b64_mobil else
+    '<div class="card-img-placeholder">🚗</div>'
+)
 
 col1, col2, col3 = st.columns([1, 1, 1])
 
+# Project 1: Walmart ──
 with col1:
     st.markdown(f"""
     <div class="card">
-      {card_img_html}
+      {card_img_walmart}
+      <div class="card-body">
+        <div class="card-badge">Data Analysis</div>
+        <div class="card-title">Diagnosing a Q4 Sales Anomaly Before Peak Season</div>
+        <div class="card-desc">
+          During routine Q4 weekly monitoring, sales in weeks 42–43 of 2012 were flagged as tracking below the same period in 2011.
+        </div>
+        <div class="card-tags" style="display:flex; flex-direction:column; gap:0.5rem;">
+        <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+            <span style="font-size:0.72rem; color:#5a5560;">Tools:</span>
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Tableau</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+            <span style="font-size:0.72rem; color:#5a5560;">Techniques:</span>
+            <span class="card-tag">EDA</span>
+            <span class="card-tag">Visualization</span>
+        </div>
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("<div style='height:0.6rem'></div>", unsafe_allow_html=True)
+    if st.button("Lihat Project →", key="btn_ws", use_container_width=True):
+        st.switch_page("pages/decline_sales.py")
+
+# Project 2: Car Spec ──
+with col2:
+    st.markdown(f"""
+    <div class="card">
+      {card_img_car}
       <div class="card-body">
         <div class="card-badge">Classification</div>
         <div class="card-title">Car Spec Evaluator</div>
@@ -290,7 +355,6 @@ with col1:
       </div>
     </div>
     """, unsafe_allow_html=True)
-
     st.markdown("<div style='height:0.6rem'></div>", unsafe_allow_html=True)
     if st.button("Lihat Project →", key="btn_car", use_container_width=True):
         st.switch_page("pages/car_evaluation.py")
